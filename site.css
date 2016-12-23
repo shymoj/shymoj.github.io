@@ -32,6 +32,8 @@ li a:hover {
 }
 
 body {
-    background-image: url("https://images.alphacoders.com/583/583207.jpg");
+    background-image: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg)");
     background-repeat: no-repeat;	
 }
+body.on { background-image: url(https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg); }
+
