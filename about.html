@@ -42,6 +42,54 @@ img:hover {
     opacity: 1.0;
     filter: alpha(opacity=100); 
 }
+.myForm {
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+font-size: 0.8em;
+width: 30em;
+padding: 1em;
+}
+
+.myForm * {
+box-sizing: border-box;
+}
+
+.myForm label {
+padding: 0;
+font-weight: bold;
+text-align: right;
+display: block;
+}
+
+.myForm input,
+.myForm select,
+.myForm textarea {
+margin-left: 2em;
+float: right;
+width: 20em;
+border: 1px solid #ccc;
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+font-size: 0.9em;
+padding: 0.3em;
+}
+
+.myForm textarea {
+height: 100px;
+}
+
+.myForm button {
+padding: 1em;
+border-radius: 0.5em;
+background: #eee;
+border: none;
+font-weight: bold;
+margin-left: 14em;
+margin-top: 1.8em;
+}
+
+.myForm button:hover {
+background: #ccc;
+cursor: pointer;
+}
 </style>
         <title>Contact</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -62,7 +110,41 @@ img:hover {
                 <p class="centered"><a href="http://www.gmail.com"><img src="http://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Gmail-icon.png" width="100"></a></p>
     <p class="centered"><a href="http://www.facebook.com"><img src ="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-facebook-512.png" width="100"></a></p>
     <p class="centered"><a href="http://www.instagram.com"><img src="http://3835642c2693476aa717-d4b78efce91b9730bcca725cf9bb0b37.r51.cf1.rackcdn.com/Instagram_App_Large_May2016_200.png" width="100"></a></p>
-    </form>
+    <form class="myForm" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
+
+<p>
+<label>Name 
+<input type="text" name="customer_name" required>
+</label> 
+</p>
+
+<p>
+<label>Email 
+<input type="email" name="email_address">
+</label>
+</p>
+	
+<p>
+<label>Enquiry Regarding 
+<select id="pickup_place" name="pickup_place">
+<option value="" selected="selected">Select One</option>
+<option value="website" >Our Website</option>
+<option value="membership" >Membership</option>
+<option value="telepathy" >We'll Guess!</option>
+</select>
+</label> 
+</p>
+
+<p>
+<label>Enquiry 
+<textarea name="comments" maxlength="500"></textarea>
+</label>
+</p>
+
+<p><button>Submit Enquiry</button></p>
+
+</form>
+		    </form>
             </div>
         </div>
     </body>
