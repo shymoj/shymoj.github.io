@@ -50,12 +50,16 @@
                 <div>
             
                   <br>
-		  <p class="centered"><button type="button" onclick="colorChange()">Color change</button>
+		  <p class="centered"><button type="button" onclick="BGChange()">BG change</button>
 		  <p id="fun"></p>
 		  <script>
-			function colorChange(){
- 			 document.body.style.backgroundImage = "url('https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg')";
-			 document.body.style.backgroundImage = "url('http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg');	
+			function BGChange(){
+				imgPath = document.body.style.backgroundImage;
+				if (imgPath == "url(http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg)" || imgPath == "") {
+					document.body.style.backgroundImage = "url(https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg)";
+				}else{
+					document.body.style.backgroundImage = "url(http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg)";
+				}
 			}
 		  </script>
 		  <br>	
