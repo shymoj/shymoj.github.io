@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visitor Page</title>
+</head>
+<body>
+<style>
+             body{
+               background-image: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg");
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          color:white;
+                  }
+</style>
+  <table id="myTable"></table>
+
+<script>
+fetch('text.txt')
+  .then(response => response.text())
+  .then(data => {
+    // You would write JavaScript here to split the text data 
+    // and insert it into the #myTable element using innerHTML
+    console.log(data); 
+  });
+</script>
+    <p>
+      <label for="game">Game:</label>
+      <input type="text" name="game">
+    </p>
+    <p>
+      <label for="date">Release date:</label>
+      <input type="text" name="date">
+    </p>
+    <input type="submit">
+  </form>
+
+</body>
+</html>
