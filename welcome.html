@@ -1,5 +1,36 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="site.css">
+</head>
 <body>
-Thanks
+    <h1>Welcome Form</h1>
+    
+    <form id="welcomeForm">
+        <label for="userName">Please enter your name:</label>
+        <input type="text" id="userName" required>
+        <button type="submit">Submit</button>
+    </form>
 
+    <h2 id="greetingMessage" style="color: green; margin-top: 20px;"></h2>
+
+    <script>
+        // Listen for the form submission
+        document.getElementById('welcomeForm').addEventListener('submit', function(event) {
+            // Prevent the page from reloading
+            event.preventDefault(); 
+            
+            // Get the value typed into the input box
+            const name = document.getElementById('userName').value;
+            
+            // Display the message
+            document.getElementById('greetingMessage').textContent = 'Welcome, ' + name + '!';
+            
+            // Optional: clear the input box after submission
+            document.getElementById('userName').value = '';
+        });
+    </script>
+</body>
 </html>

@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Visitor Page</title>
+    <meta charset="UTF-8">
+    <title>Data Table</title>
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
-<style>
-             body{
-               background-image: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg");
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          color:white;
-                  }
-</style>
-  <table id="myTable"></table>
+    <h1>Data from text.txt</h1>
+    
+    <table border="1" id="dataTable">
+        <tbody id="tableBody"></tbody>
+    </table>
 
-<script>
-fetch('text.txt')
-  .then(response => response.text())
-  .then(data => {
-    // You would write JavaScript here to split the text data 
-    // and insert it into the #myTable element using innerHTML
-    console.log(data); 
-  });
-</script>
-    <p>
-      <label for="game">Game:</label>
-      <input type="text" name="game">
-    </p>
-    <p>
-      <label for="date">Release date:</label>
-      <input type="text" name="date">
-    </p>
-    <input type="submit">
-  </form>
-
+    <script>
+        // Fetch the text file from the repository
+        fetch('text.txt')
+            .then(response => response.text())
+            .then(data => {
+                const tableBody = document.getElementById('tableBody');
+                
+                // Split the text file by line breaks to get each row
+                const rows = data.trim().split('\n');
+                
+                rows.forEach(rowText => {
+                    const tr = document.createElement('tr');
+                    
+                    // Assuming your text file separates columns with a comma. 
+                    // If it uses spaces, change ',' to ' '
+                    const columns = rowText.split(','); 
+                    
+                    columns.forEach(colText => {
+                        const td = document.createElement('td');
+                        td.textContent = colText.trim();
+                        tr.appendChild(td);
+                    });
+                    
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading the text file:', error);
+                document.getElementById('tableBody').innerHTML = '<tr><td>Error loading data.</td></tr>';
+            });
+    </script>
 </body>
 </html>
