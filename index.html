@@ -44,7 +44,7 @@
 			text-align: center;
 		    } 
           body{
-               background-image: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg");
+               background-image: url("https://images7.alphacoders.com/140/thumb-1920-1405870.png");
           background-repeat: no-repeat;
           background-attachment: fixed;
           color:white;
@@ -60,15 +60,19 @@
 		  <p class="centered"><button type="button" onclick="BGChange()">BG change</button>
 		  <p id="fun"></p>
 		  <script>
-			function BGChange(){
-				imgPath = document.body.style.backgroundImage;
-				if (imgPath == "url(http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg)" || imgPath == "") {
-					document.body.style.backgroundImage = "url(https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg)";
-				}
-				else{
-					document.body.style.backgroundImage = "url(http://cdn.wonderfulengineering.com/wp-content/uploads/2015/05/San-Francisco-Wallpaper.jpg)";
-				}
-			}
+			
+    function BGChange() {
+    // Get the current background image
+    let imgPath = document.body.style.backgroundImage;
+    
+    // Check if it's currently showing Tehran. If so, switch to San Francisco.
+    if (imgPath.includes("web-tehran")) {
+        document.body.style.backgroundImage = 'url("https://images7.alphacoders.com/140/thumb-1920-1405870.png")';
+    } else {
+        // Otherwise, switch to Tehran
+        document.body.style.backgroundImage = 'url("https://images.alphacoders.com/583/thumb-1920-583207.jpg")';
+    }
+}
 						
 		  </script>
 			
