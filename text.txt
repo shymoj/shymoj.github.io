@@ -1,4 +1,5 @@
-
-Jack Dawson
-Shy Guy
-This Guy
+Name, Major, Year
+Alice, Computer Science, Senior
+Bob, Information Systems, Junior
+Charlie, Mathematics, Sophomore
+Diana, Software Engineering, Senior

@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Page</title>
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="demo.html">Demo</a> |
+        <a href="table.html">Data Table</a> |
+        <a href="welcome.html">Welcome Form</a>
+    </nav>
 
+    <h1>Demo Page</h1>
+    <p id="demoText"></p>
+
+    <script>
+        // A simple JavaScript demo to replace a PHP echo
+        document.getElementById('demoText').innerHTML = "<strong>Success!</strong> JavaScript is running perfectly.";
+    </script>
+</body>
+</html>
