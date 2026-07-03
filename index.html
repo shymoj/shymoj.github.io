@@ -24,6 +24,33 @@
             width: 350px; 
             height: 160px; 
         }
+        /* Force the row to use flexbox to equalize column heights */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Make the thumbnail fill the entire column height */
+.thumbnail {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Push the text and buttons to the bottom evenly */
+.thumbnail .caption {
+    margin-top: auto; 
+}
+
+/* Lock all thumbnail images to the exact same height */
+.thumbnail img {
+    height: 150px;
+    width: 100%;
+    object-fit: contain; /* Keeps logos from getting cropped or stretched */
+    padding-top: 10px;
+}
+        
+        
     </style>
 </head>
 
