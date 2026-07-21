@@ -38,8 +38,56 @@
             height: 150px;
             width: 100%;
             object-fit: contain; 
-            padding-top: 10px;
+            padding-top: 10px;    
         }
+        .game-card {
+    position: relative;
+    margin-bottom: 30px; /* Space between rows */
+    overflow: hidden; /* Keeps the zoom effect cleanly inside the box boundaries */
+    border-radius: 8px; /* Smooth, rounded corners */
+    background-color: #000; /* Dark background behind the transparent image */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+/* The Image Styles */
+.game-card img {
+    width: 100%;
+    height: 250px; /* Forces all images to be EXACTLY the same height */
+    object-fit: cover; /* Crops images to fit perfectly without stretching */
+    opacity: 0.6; /* Starts with 60% transparency */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Smooth animation engine */
+}
+
+/* Hover Animation for the Image */
+.game-card:hover img {
+    opacity: 1; /* Removes transparency (full color) */
+    transform: scale(1.1); /* Smoothly zooms/scales the image in */
+}
+
+/* --- Year Hover Reveal Effect (with "Scroll Up" animation) --- */
+.game-card::after {
+    content: "Released: " attr(data-year);
+    position: absolute;
+    top: 65%; /* Starts lower so it has room to 'scroll' up */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    pointer-events: none; /* Prevents text from blocking clicks to the Wikipedia link */
+    
+    opacity: 0; /* Hidden by default */
+    transition: all 0.4s ease-in-out;
+}
+
+/* Trigger the text scroll and reveal on hover */
+.game-card:hover::after {
+    top: 50%; /* Slides the text up to the perfect center */
+    opacity: 1; /* Fades the text in */
+}
     </style>
 </head>
 
@@ -61,78 +109,130 @@
     background-position: center;  /* Keeps the image centered as it stretches */
     color: white;
     overflow-x: hidden;
+    .col-md-4[data-year] {
+    position: relative;
+}
+
+/* 2. Create the hidden year overlay using the data-year attribute */
+.col-md-4[data-year]::after {
+    content: "Released: " attr(data-year); /* Automatically pulls the year from your HTML */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    pointer-events: none; /* Ensures the hover box doesn't block you from clicking the image link */
+    
+    /* Hide it by default and animate the transition */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* 3. Reveal the overlay when hovering over the column */
+.col-md-4[data-year]:hover::after {
+    opacity: 1;
+
 }</style>
     <div class="container">
         <h1 class="centered sansSerif">&#9794 Video Games &#9806</h1>
-   <div class="row">
-        
+  <div class="row">
         <!-- ROW 1 -->
-        <div class="col-md-4 col-sm-6 text-center" data-title="gta3" data-year="2001">
-            <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_III">
-                <img class="image thumbnail center-block" src="http://vignette1.wikia.nocookie.net/gtawiki/images/f/f6/GTA3_Box_Art.jpg/revision/latest?cb=20080816153549" alt="GTA 3">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="gta3" data-year="2001">
+                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_III">
+                    <img src="http://vignette1.wikia.nocookie.net/gtawiki/images/f/f6/GTA3_Box_Art.jpg/revision/latest?cb=20080816153549" alt="GTA 3">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="gtavc" data-year="2002">
-            <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City">
-                <img class="image thumbnail center-block" src="http://vignette2.wikia.nocookie.net/gtawiki/images/3/36/GTA_Vice_City_Box_Art.jpg/revision/latest?cb=20080816125146" alt="GTA Vice City">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="gtavc" data-year="2002">
+                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City">
+                    <img src="http://vignette2.wikia.nocookie.net/gtawiki/images/3/36/GTA_Vice_City_Box_Art.jpg/revision/latest?cb=20080816125146" alt="GTA Vice City">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="gtasa" data-year="2004">
-            <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_San_Andreas">
-                <img class="image thumbnail center-block" src="http://vignette1.wikia.nocookie.net/gtawiki/images/9/92/GTA_San_Andreas_Box_Art.jpg/revision/20090429015305" alt="GTA San Andreas">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="gtasa" data-year="2004">
+                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_San_Andreas">
+                    <img src="http://vignette1.wikia.nocookie.net/gtawiki/images/9/92/GTA_San_Andreas_Box_Art.jpg/revision/20090429015305" alt="GTA San Andreas">
+                </a>
+            </div>
         </div>
 
         <!-- ROW 2 -->
-        <div class="col-md-4 col-sm-6 text-center" data-title="gtaiv" data-year="2008">
-            <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV">
-                <img class="image thumbnail center-block" src="http://vignette2.wikia.nocookie.net/gtawiki/images/4/44/GTAIV-Boxart.jpg/revision/latest?cb=20071128223330" alt="GTA IV">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="gtaiv" data-year="2008">
+                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV">
+                    <img src="http://vignette2.wikia.nocookie.net/gtawiki/images/4/44/GTAIV-Boxart.jpg/revision/latest?cb=20071128223330" alt="GTA IV">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="gtaiveflc" data-year="2009">
-            <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Episodes_from_Liberty_City">
-                <img class="image thumbnail center-block" src="http://vignette4.wikia.nocookie.net/gtawiki/images/2/21/GTA_EFLC_Neutral_Cover.jpg/revision/latest?cb=20100814203633" alt="GTA EFLC">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="gtaiveflc" data-year="2009">
+                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Episodes_from_Liberty_City">
+                    <img src="http://vignette4.wikia.nocookie.net/gtawiki/images/2/21/GTA_EFLC_Neutral_Cover.jpg/revision/latest?cb=20100814203633" alt="GTA EFLC">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="gtav" data-year="2013">
-            <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_V">
-                <img class="image thumbnail center-block" src="http://vignette3.wikia.nocookie.net/gtawiki/images/0/0c/OneTrueSlash.jpg/revision/latest?cb=20140116163503" alt="GTA V">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="gtav" data-year="2013">
+                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_V">
+                    <img src="http://vignette3.wikia.nocookie.net/gtawiki/images/0/0c/OneTrueSlash.jpg/revision/latest?cb=20140116163503" alt="GTA V">
+                </a>
+            </div>
         </div>
 
         <!-- ROW 3 -->
-        <div class="col-md-4 col-sm-6 text-center" data-title="mgs1" data-year="1998">
-            <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid">
-                <img class="image thumbnail center-block" src="http://static.giantbomb.com/uploads/scale_small/0/1614/830685-metal_gear_solid_ps_jp_20anniv.jpg" alt="MGS 1">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="mgs1" data-year="1998">
+                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid">
+                    <img src="http://static.giantbomb.com/uploads/scale_small/0/1614/830685-metal_gear_solid_ps_jp_20anniv.jpg" alt="MGS 1">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="mgs2" data-year="2001">
-            <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_2:_Sons_of_Liberty">
-                <img class="image thumbnail center-block" src="https://upload.wikimedia.org/wikipedia/en/6/6a/Metalgear2boxart.jpg" alt="MGS 2">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="mgs2" data-year="2001">
+                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_2:_Sons_of_Liberty">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/Metalgear2boxart.jpg" alt="MGS 2">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="mgs3" data-year="2004">
-            <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_3:_Snake_Eater">
-                <img class="image thumbnail center-block" src="https://upload.wikimedia.org/wikipedia/en/b/b3/Mgs3box.jpg" alt="MGS 3">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="mgs3" data-year="2004">
+                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_3:_Snake_Eater">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/b/b3/Mgs3box.jpg" alt="MGS 3">
+                </a>
+            </div>
         </div>
 
         <!-- ROW 4 -->
-        <div class="col-md-4 col-sm-6 text-center" data-title="mgs4" data-year="2008">
-            <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_4:_Guns_of_the_Patriots">
-                <img class="image thumbnail center-block" src="https://upload.wikimedia.org/wikipedia/en/4/4b/Mgs4us_cover_small.jpg" alt="MGS 4">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="mgs4" data-year="2008">
+                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_4:_Guns_of_the_Patriots">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/4/4b/Mgs4us_cover_small.jpg" alt="MGS 4">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="mgs5gz" data-year="2014">
-            <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_Ground_Zeroes">
-                <img class="image thumbnail center-block" src="https://upload.wikimedia.org/wikipedia/en/0/07/MGSV_Ground_Zeroes_boxart.jpg" alt="MGS V GZ">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="mgs5gz" data-year="2014">
+                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_Ground_Zeroes">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/0/07/MGSV_Ground_Zeroes_boxart.jpg" alt="MGS V GZ">
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 text-center" data-title="mgs5tpp" data-year="2015">
-            <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_The_Phantom_Pain">
-                <img class="image thumbnail center-block" src="https://upload.wikimedia.org/wikipedia/en/8/8f/Metal_Gear_Solid_V_The_Phantom_Pain_cover.png" alt="MGS V TPP">
-            </a>
+        <div class="col-md-4 col-sm-6">
+            <div class="game-card" data-title="mgs5tpp" data-year="2015">
+                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_The_Phantom_Pain">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/8/8f/Metal_Gear_Solid_V_The_Phantom_Pain_cover.png" alt="MGS V TPP">
+                </a>
+            </div>
         </div>
+    </div> <!-- End Row -->
 
         </div>
 
