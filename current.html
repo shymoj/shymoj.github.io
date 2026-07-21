@@ -40,54 +40,58 @@
             object-fit: contain; 
             padding-top: 10px;    
         }
-        .game-card {
-    position: relative;
-    margin-bottom: 30px; /* Space between rows */
-    overflow: hidden; /* Keeps the zoom effect cleanly inside the box boundaries */
-    border-radius: 8px; /* Smooth, rounded corners */
-    background-color: #000; /* Dark background behind the transparent image */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
-}
+        
 
-/* The Image Styles */
-.game-card img {
-    width: 100%;
-    height: 250px; /* Forces all images to be EXACTLY the same height */
-    object-fit: cover; /* Crops images to fit perfectly without stretching */
-    opacity: 0.6; /* Starts with 60% transparency */
-    transition: transform 0.5s ease, opacity 0.5s ease; /* Smooth animation engine */
-}
+    .game-card {
+        position: relative;
+        margin-bottom: 30px;
+        height: 350px; /* Forces the box to a strict height */
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: #000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    }
 
-/* Hover Animation for the Image */
-.game-card:hover img {
-    opacity: 1; /* Removes transparency (full color) */
-    transform: scale(1.1); /* Smoothly zooms/scales the image in */
-}
+    /* The Image Styles - FORCED UNIFORM SIZE */
+    .game-card img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important; /* Crops to fill the 350px box perfectly */
+        object-position: center top !important; /* Keeps the focus on the top of the box art */
+        opacity: 0.6;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        display: block;
+    }
 
-/* --- Year Hover Reveal Effect (with "Scroll Up" animation) --- */
-.game-card::after {
-    content: "Released: " attr(data-year);
-    position: absolute;
-    top: 65%; /* Starts lower so it has room to 'scroll' up */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 6px;
-    pointer-events: none; /* Prevents text from blocking clicks to the Wikipedia link */
-    
-    opacity: 0; /* Hidden by default */
-    transition: all 0.4s ease-in-out;
-}
+    /* Hover Animation for the Image */
+    .game-card:hover img {
+        opacity: 1;
+        transform: scale(1.1);
+    }
 
-/* Trigger the text scroll and reveal on hover */
-.game-card:hover::after {
-    top: 50%; /* Slides the text up to the perfect center */
-    opacity: 1; /* Fades the text in */
-}
+    /* --- Year Hover Reveal Effect --- */
+    .game-card::after {
+        content: "Released: " attr(data-year);
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 6px;
+        pointer-events: none;
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        white-space: nowrap;
+    }
+
+    .game-card:hover::after {
+        top: 50%;
+        opacity: 1;
+    }
     </style>
 </head>
 
