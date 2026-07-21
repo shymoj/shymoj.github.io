@@ -1,140 +1,107 @@
 <!DOCTYPE html>
       <html>
           <head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script>$(document).ready(function(){
-			$("p").click(function(){
-			    $(this).hide();
-			});
-		});
-		</script>
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script>
-			$(function(){
-				var availableTags = [
-							"Apple","Bing","HDMI","Bluray","Grand Theft Auto","Fighting Force","Metal Gear Solid","Red Dead","Terminator"];
-		$("#tags").autocomplete({source: availableTags
-			});
-		});
-		</script>
-               <ul>
-                      <div id="navbar-placeholder"></div>
-
-    <script>
-        fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
-        });
-    </script>
-        
-             <title>Current News</title>
+		<title>Current News</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- jQuery UI CSS (THIS WAS MISSING for the search bar) -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
-    <!-- jQuery and jQuery UI Scripts (Only load these ONCE) -->
+    <!-- jQuery Script -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Search Bar Autocomplete Script -->
-    <script>
-    $(function(){
-        var availableTags = ["Apple","Bing","HDMI","Bluray","Grand Theft Auto","Fighting Force","Metal Gear Solid","Red Dead","Terminator"];
-        $("#tags").autocomplete({
-            source: availableTags
-        });
-    });
-    </script>
-    
-    <!-- Paragraph Hide Script -->
+    <!-- Live Search Script -->
     <script>
     $(document).ready(function(){
-        $("p").click(function(){
-            $(this).hide();
+        // Listen for typing in the search box
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            
+            // Filter the articles based on the text typed
+            $(".article").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
     });
     </script>
-         </head>
-         <style>
-            body {
-        background-image: url("https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1920&auto=format&fit=crop");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover; /* Added to make sure it fits the screen */
-        color: white;
-    }
-</style>
+               <ul>
+    <body>
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+    <script>
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        });
+    </script>
 
-            <div class="container">
+    <div class="container">
         <h1 class="text-center sansSerif red">News</h1>
         
-        <!-- FIXED SEARCH BAR -->
-        <div class="ui-widget text-center" style="margin-bottom: 50px;">
-            <label for="tags">Tags: </label>
-            <input id="tags" style="color: black;">
+        <!-- LIVE SEARCH BAR -->
+        <div class="text-center" style="margin-bottom: 50px;">
+            <label for="searchInput">Search Articles: </label>
+            <input id="searchInput" type="text" placeholder="Type to search..." style="color: black; padding: 5px; border-radius: 4px; width: 250px;">
         </div>
 
-        <!-- Note 7 Article -->
-        <p class="text-center"><b>Samsung Note 7 Review!</b></p>
-        <div class="text-center">
-            <!-- Fixed Image Link -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_Galaxy_Note_7_logo.svg/512px-Samsung_Galaxy_Note_7_logo.svg.png" style="vertical-align: middle;" width="200" alt="Note 7">
-        </div>
-        <p>The Galaxy Note 7 is a beautiful, capable Android phone that showcases Samsung's best in design, battery life, speed and features. The 64GB base model leaves you plenty of space for photos, videos and games.</p>
-        
-        <p class="text-center">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 95%"></div></div>
-        <p class="text-center">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
-        <p class="text-center">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="text-center">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 95%"></div></div>
-        <br>
-
-        <!-- PS4 Pro Article -->
-        <p class="text-center"><b>Playstation 4 Pro Review!</b></p>
-        <div class="text-center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/PlayStation_4_Pro_logo.svg/512px-PlayStation_4_Pro_logo.svg.png" style="vertical-align: middle;" width="200" alt="PS4 Pro">
-        </div>
-        <p>The PS4 Pro outputs a 4K- and HDR signal that's compatible with high-end TVs, and promises better visuals and increased frame rates for certain games. The console includes a 1TB hard drive, and it works with all PS4 games, apps and accessories to date.</p>
-        
-        <p class="text-center">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
-        <p class="text-center">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
-        <p class="text-center">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="text-center">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 70%"></div></div>
-        <br><br>
-
-        <!-- Xbox One S Article -->
-        <p class="text-center"><b>Xbox One S Review!</b></p>
-        <div class="text-center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Xbox_One_S_logo.svg/512px-Xbox_One_S_logo.svg.png" style="vertical-align: middle;" width="200" alt="Xbox One S">
-        </div>
-        <p>The Xbox One S is a slick looking game console that's 40 percent smaller than the original and ditches the infamously gigantic power brick. It can display 4K video from streaming services and Ultra HD Blu-rays, and supports HDR contrast on video and games. The updated controller works with other Bluetooth devices, too.</p>
-        
-        <p class="text-center">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
-        <p class="text-center">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 70%"></div></div>
-        <p class="text-center">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="text-center">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 90%"></div></div>
-    </div>
-                </div>
+        <!-- Note 7 Article Container -->
+        <div class="article">
+            <p class="text-center"><b>Samsung Note 7 Review!</b></p>
+            <div class="text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_Galaxy_Note_7_logo.svg/512px-Samsung_Galaxy_Note_7_logo.svg.png" style="vertical-align: middle;" width="200" alt="Note 7">
             </div>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <p>The Galaxy Note 7 is a beautiful, capable Android phone that showcases Samsung's best in design, battery life, speed and features. The 64GB base model leaves you plenty of space for photos, videos and games.</p>
+            
+            <p class="text-center">Overall</p>
+            <div class="progress"><div class="progress-bar progress-bar-info" style="width: 95%"></div></div>
+            <p class="text-center">Software</p>
+            <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
+            <p class="text-center">Hardware</p>
+            <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
+            <p class="text-center">Features</p>
+            <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 95%"></div></div>
+            <br>
+        </div>
+
+        <!-- PS4 Pro Article Container -->
+        <div class="article">
+            <p class="text-center"><b>Playstation 4 Pro Review!</b></p>
+            <div class="text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/PlayStation_4_Pro_logo.svg/512px-PlayStation_4_Pro_logo.svg.png" style="vertical-align: middle;" width="200" alt="PS4 Pro">
+            </div>
+            <p>The PS4 Pro outputs a 4K- and HDR signal that's compatible with high-end TVs, and promises better visuals and increased frame rates for certain games. The console includes a 1TB hard drive, and it works with all PS4 games, apps and accessories to date.</p>
+            
+            <p class="text-center">Overall</p>
+            <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
+            <p class="text-center">Software</p>
+            <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
+            <p class="text-center">Hardware</p>
+            <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
+            <p class="text-center">Features</p>
+            <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 70%"></div></div>
+            <br>
+        </div>
+
+        <!-- Xbox One S Article Container -->
+        <div class="article">
+            <p class="text-center"><b>Xbox One S Review!</b></p>
+            <div class="text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Xbox_One_S_logo.svg/512px-Xbox_One_S_logo.svg.png" style="vertical-align: middle;" width="200" alt="Xbox One S">
+            </div>
+            <p>The Xbox One S is a slick looking game console that's 40 percent smaller than the original and ditches the infamously gigantic power brick. It can display 4K video from streaming services and Ultra HD Blu-rays, and supports HDR contrast on video and games. The updated controller works with other Bluetooth devices, too.</p>
+            
+            <p class="text-center">Overall</p>
+            <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
+            <p class="text-center">Software</p>
+            <div class="progress"><div class="progress-bar progress-bar-success" style="width: 70%"></div></div>
+            <p class="text-center">Hardware</p>
+            <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
+            <p class="text-center">Features</p>
+            <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 90%"></div></div>
+        </div>
+        
+    </div>
         </body>
     </html>
   
