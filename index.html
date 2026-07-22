@@ -55,18 +55,19 @@
 </head>
 
 <body>
-    <script>
+<script>
 $(document).ready(function() {
-    // Listen for the Bootstrap carousel slide transition to finish
-    $('#my-pics').on('slid.bs.carousel', function () {
-        // Find out which slide number is currently active (0, 1, or 2)
-        var activeIndex = $(this).find('.item.active').index();
+    // We use 'slide' instead of 'slid' so it changes instantly before the animation finishes
+    $('#my-pics').on('slide.bs.carousel', function (e) {
         
-        // Hide all reviews instantly
+        // e.relatedTarget safely grabs the exact slide that is about to appear
+        var nextIndex = $(e.relatedTarget).index();
+        
+        // Hide all reviews immediately
         $('.review-section').hide();
         
-        // Fade in only the review that matches the active slide
-        $('#review-' + activeIndex).fadeIn(300);
+        // Show the review that matches the new incoming slide
+        $('#review-' + nextIndex).fadeIn(300);
     });
 });
 </script>
