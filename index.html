@@ -55,6 +55,21 @@
 </head>
 
 <body>
+    <script>
+$(document).ready(function() {
+    // Listen for the Bootstrap carousel slide transition to finish
+    $('#my-pics').on('slid.bs.carousel', function () {
+        // Find out which slide number is currently active (0, 1, or 2)
+        var activeIndex = $(this).find('.item.active').index();
+        
+        // Hide all reviews instantly
+        $('.review-section').hide();
+        
+        // Fade in only the review that matches the active slide
+        $('#review-' + activeIndex).fadeIn(300);
+    });
+});
+</script>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -146,7 +161,12 @@
         </div>
 
         <br><br><br><br>
-
+        
+        <!-- REVIEWS SECTION -->
+<div id="reviews-container">
+    
+    <!-- 1. Note 7 Review (Index 0 - Visible by default) -->
+    <div id="review-0" class="review-section">
         <p class="centered"><b><center>Samsung Note 7 Review!</center></b></p>
         <p class="centered">Overall</p>
         <div class="progress"><div class="progress-bar progress-bar-info" style="width: 95%"></div></div>
@@ -157,7 +177,10 @@
         <p class="centered">Features</p>
         <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 95%"></div></div>
         <br>
+    </div>
 
+    <!-- 2. PS4 Pro Review (Index 1 - Hidden by default) -->
+    <div id="review-1" class="review-section" style="display: none;">
         <p class="centered"><b><center>Playstation 4 Pro Review!</center></b></p>
         <p class="centered">Overall</p>
         <div class="progress"><div class="progress-bar progress-bar-info" style="width: 90%"></div></div>
@@ -167,8 +190,11 @@
         <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 90%"></div></div>
         <p class="centered">Features</p>
         <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 75%"></div></div>
-        <br><br>
+        <br>
+    </div>
 
+    <!-- 3. Xbox One S Review (Index 2 - Hidden by default) -->
+    <div id="review-2" class="review-section" style="display: none;">
         <p class="centered"><b><center>Xbox One S Review!</center></b></p>
         <p class="centered">Overall</p>
         <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
@@ -178,6 +204,10 @@
         <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
         <p class="centered">Features</p>
         <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 90%"></div></div>
+        <br>
+    </div>
+    
+</div>
         <br><br>
 
         <p class="centered"><a href="http://www.howtogeek.com/248177/whats-new-in-windows-10    s-anniversary-update/">New features for Windows 10 Anniversary update</a></p>
