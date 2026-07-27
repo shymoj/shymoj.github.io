@@ -3,7 +3,7 @@
 <head>
     <title>Shayans Index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+    <link rel="stylesheet" href="site.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     
     <style>
@@ -48,48 +48,7 @@
     width: 100%;
     object-fit: contain; /* Keeps logos from getting cropped or stretched */
     padding-top: 10px;
-}
-        /* Hero Slider Container */
-.hero-slider {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* Changed from 80vh to 100vh for full-screen height */
-  overflow: hidden;
-  background-color: #333;
-}
-
-/* Individual Slides */
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; /* Forces every slide to match the container's exact size */
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.slide.active {
-  opacity: 1;
-  z-index: 1;
-}
-
-/* Images inside slides */
-.slide img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* IMPORTANT: This makes all images exactly the same size without stretching */
-  object-position: center; /* Keeps the most important part of the image centered */
-  z-index: -1;
-  filter: brightness(0.6); 
-}
-        
+}        
     </style>
 </head>
 
@@ -108,6 +67,47 @@ $(document).ready(function() {
         // Show the review that matches the new incoming slide
         $('#review-' + nextIndex).fadeIn(300);
     });
+});
+document.addEventListener("DOMContentLoaded", function() {
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  let slideInterval;
+
+  // Make sure slides exist on the page before running
+  if (slides.length === 0) {
+    console.error("No slides found. Check your HTML class names.");
+    return;
+  }
+
+  function showSlide(index) {
+    if (index >= slides.length) currentSlide = 0;
+    if (index < 0) currentSlide = slides.length - 1;
+    
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[currentSlide].classList.add('active');
+  }
+
+  // Expose changeSlide to the global window object so the HTML buttons can use it
+  window.changeSlide = function(direction) {
+    currentSlide += direction;
+    showSlide(currentSlide);
+    resetTimer();
+  };
+
+  function startTimer() {
+    slideInterval = setInterval(() => {
+      currentSlide++;
+      showSlide(currentSlide);
+    }, 5000);
+  }
+
+  function resetTimer() {
+    clearInterval(slideInterval);
+    startTimer();
+  }
+
+  showSlide(currentSlide);
+  startTimer();
 });
 </script>
     <nav class="navbar navbar-default">
