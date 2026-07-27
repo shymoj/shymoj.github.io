@@ -1,256 +1,74 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Shayans Index</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
-    <style>
-        h1 { text-align: center; }
-        p { text-align: center; }
-        body {
-            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg/3840px-San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            overflow-x: hidden;
-        }
-        article.scrollspy-example {
-            position: relative; 
-            overflow: scroll; 
-            width: 350px; 
-            height: 160px; 
-        }
-        /* Force the row to use flexbox to equalize column heights */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-/* Make the thumbnail fill the entire column height */
-.thumbnail {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Push the text and buttons to the bottom evenly */
-.thumbnail .caption {
-    margin-top: auto; 
-}
-
-/* Lock all thumbnail images to the exact same height */
-.thumbnail img {
-    height: 150px;
-    width: 100%;
-    object-fit: contain; /* Keeps logos from getting cropped or stretched */
-    padding-top: 10px;
-}
-        
-        
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shymoj | Home</title>
+  <!-- Importing elegant fonts to match the Almar vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
-
 <body>
-<script>
-$(document).ready(function() {
-    // We use 'slide' instead of 'slid' so it changes instantly before the animation finishes
-    $('#my-pics').on('slide.bs.carousel', function (e) {
-        
-        // e.relatedTarget safely grabs the exact slide that is about to appear
-        var nextIndex = $(e.relatedTarget).index();
-        
-        // Hide all reviews immediately
-        $('.review-section').hide();
-        
-        // Show the review that matches the new incoming slide
-        $('#review-' + nextIndex).fadeIn(300);
-    });
-});
-</script>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Dropdown<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="news.html">News</a></li>
-                            <li><a href="current.html">Games</a></li>
-                            <li><a href="about.html">Contacts</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="table.html">Table</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container">
-        <h1 class="centered sansSerif">&#9794 Shayan M &#9806</h1>
-        <br>
-        
-        <p class="centered">
-            <button type="button" class="btn btn-default" onclick="BGChange()">BG change</button>
-        </p>
-        <p id="fun"></p>
+  <!-- Minimalist Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">SHYMOJ</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="current.html">Demo</a></li>
+    </ul>
+  </nav>
 
-        <script>
-        function BGChange() {
-            let imgPath = document.body.style.backgroundImage;
-            if (imgPath.includes("web-tehran")) {
-                document.body.style.backgroundImage = 'url("https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2000&auto=format&fit=crop")';
-            } else {
-                document.body.style.backgroundImage = 'url("https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg")';
-            }
-        }
-        </script>
+  <!-- Almar-Inspired Hero Section -->
+  <header class="hero-section">
+    <div class="hero-text">
+      <h1>Elevate your digital presence.</h1>
+      <p>Exploring the intersection of elegant design and functional code.</p>
+      <a href="about.html" class="outline-btn">Contact usy</a>
+    </div>
+    <div class="hero-image">
+      <!-- You can replace this with your own high-quality image -->
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" alt="Modern Architecture">
+    </div>
+  </header>
 
-        <br>
-
-        <div id="my-pics" class="carousel slide" data-ride="carousel" style="width:300px;margin:auto;">
-            <ol class="carousel-indicators">
-                <li data-target="#my-pics" data-slide-to="0" class="active"></li>
-                <li data-target="#my-pics" data-slide-to="1" class="active"></li>
-                <li data-target="#my-pics" data-slide-to="2" class="active"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <a href="news.html"><img src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" alt="news"></a>
-                    <div class="carousel-caption">
-                        <h3>News</h3>
-                    </div>
-                </div>
-                <div class="item">
-                    <a href="current.html"><img src="https://cdn.wccftech.com/wp-content/uploads/2021/10/GTA-Remastered-TrilogyHD-scaled.jpg" alt="games"></a>
-                    <div class="carousel-caption">
-                        <h3>Games List</h3>
-                    </div>
-                </div>
-                <div class="item">
-                    <a href="about.html"><img src="https://assets.adventistconnect.org/daytonco/2025/10/30141948/contactus-816336458.jpg.jpg" alt="contacts"></a>
-                    <div class="carousel-caption">
-                        <h3>Contacts</h3>
-                    </div>
-                </div>
-            </div>
-            <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
-                <span class="icon-prev" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
-                <span class="icon-next" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-
-        <br><br><br><br>
-        
-        <!-- REVIEWS SECTION
-<div id="reviews-container">
+  <!-- Spacious Content Section -->
+  <main class="content-section">
+    <div class="section-header">
+      <h2>Recent Work & Updates</h2>
+    </div>
     
-     1. Note 7 Review (Index 0 - Visible by default) 
-    <div id="review-0" class="review-section">
-        <p class="centered"><b><center>Samsung Note 7 Review!</center></b></p>
-        <p class="centered">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 95%"></div></div>
-        <p class="centered">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
-        <p class="centered">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="centered">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 95%"></div></div>
-        <br>
+    <div class="grid-container">
+      <div class="grid-item">
+        <span class="meta">01 &mdash; Project</span>
+        <h3>Games</h3>
+        <p>Experience some of my game list.</p>
+        <a href="current.html" class="text-link">View Demo</a>
+      </div>
+      
+      <div class="grid-item">
+        <span class="meta">02 &mdash; Updates</span>
+        <h3>Latest News</h3>
+        <p>Stay up to date with the recent minor updates, patches, and platform announcements.</p>
+        <a href="news.html" class="text-link">Read News</a>
+      </div>
+        <div class="grid-item">
+            <span class="meta">03 &mdash; About</span>
+            <h3>Contact</h3>
+            <p>Get in touch with me for collaborations, inquiries, or just to say hello.</p>
+            <a href="about.html" class="text-link">Contact Me</a>
     </div>
+  </main>
 
-    <!---- 2. PS4 Pro Review (Index 1 - Hidden by default) 
-    <div id="review-1" class="review-section" style="display: none;">
-        <p class="centered"><b><center>Playstation 4 Pro Review!</center></b></p>
-        <p class="centered">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 90%"></div></div>
-        <p class="centered">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 85%"></div></div>
-        <p class="centered">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 90%"></div></div>
-        <p class="centered">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 75%"></div></div>
-        <br>
+  <!-- Clean Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <h2>SHYMOJ</h2>
+      <p>&copy; 2026 Shymoj GitHub IO.</p>
     </div>
+  </footer>
 
-    <!-- 3. Xbox One S Review (Index 2 - Hidden by default) 
-    <div id="review-2" class="review-section" style="display: none;">
-        <p class="centered"><b><center>Xbox One S Review!</center></b></p>
-        <p class="centered">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
-        <p class="centered">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 70%"></div></div>
-        <p class="centered">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="centered">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 90%"></div></div>
-        <br>
-    </div>
--->
-</div>
-        <br><br>
-
-
-
-        <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://imageio.forbes.com/specials-images/imageserve/55b934d5e4b05c2c34324463/0x0.jpg?format=jpg&crop=416,416,x0,y0,safe&height=200&width=200&fit=bounds" alt="sfsu">
-                    <div class="caption">
-                        <p>SFSU Student</p>
-                        <p><a href="http://www.sfsu.edu/" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://media.glassdoor.com/sqll/671945/github-squarelogo-1449862218536.png" alt="cs">
-                    <div class="caption">
-                        <p>Computer Science major. Here is my github</p>
-                        <p><a href="https://github.com/shymoj" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/3473-200.png" alt="vg">
-                    <div class="caption">
-                        <p>I like video games</p>
-                        <p><a href="current.html" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/contact-us-icon.png" alt="about">
-                    <div class="caption">
-                        <p>My contact information</p>
-                        <p><a href="about.html" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
