@@ -23,11 +23,6 @@
             });
         });
     });
-       fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
-        });
     </script>
     <style>
     body {
@@ -43,6 +38,13 @@
     <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
+    <script>
+        fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        });
+    </script>
 
     <div class="container">
         <h1 class="text-center sansSerif red">News</h1>
@@ -110,6 +112,18 @@
         </div>
         
     </div>
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
+
+    // This toggle function fixes the open/close issue
+    menuToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('is-active'); // Animates the hamburger
+    });
+  });
+</script>
         </body>
     </html>
   

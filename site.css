@@ -82,3 +82,64 @@ body.on { background-image: url(https://images.alphacoders.com/583/thumb-1920-58
   z-index: -1;
   filter: brightness(0.6); 
 }
+/* --- Hamburger Menu Icon --- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 100; /* Keeps it above the menu */
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 2px;
+  background-color: var(--text-color);
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+/* --- Mobile Navbar Responsive Fix --- */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Hide links by default on mobile */
+  .nav-links {
+    position: absolute;
+    top: 80px; /* Adjust based on navbar height */
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+  }
+
+  /* When the JS adds the 'active' class, show the menu */
+  .nav-links.active {
+    max-height: 400px; /* Large enough to fit the links */
+    padding-bottom: 20px;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  /* Optional: Animate hamburger into an 'X' */
+  .menu-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+  .menu-toggle.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+}
