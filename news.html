@@ -23,6 +23,11 @@
             });
         });
     });
+       fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+        });
     </script>
     <style>
     body {
@@ -38,13 +43,6 @@
     <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
-    <script>
-        fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
-        });
-    </script>
 
     <div class="container">
         <h1 class="text-center sansSerif red">News</h1>
