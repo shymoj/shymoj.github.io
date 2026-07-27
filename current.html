@@ -97,16 +97,27 @@
 </head>
 
 <body>
-    <div id="navbar-placeholder"></div>
+    <!-- This empty div is where your navbar will appear -->
+<div id="nav-placeholder"></div>
 
-    <script>
-        fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
+<!-- This script loads navbar.html into the div above -->
+<script>
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('nav-placeholder').innerHTML = data;
+      
+      // Re-activate the mobile hamburger menu once the navbar loads
+      const menuToggle = document.getElementById('mobile-menu');
+      const navLinks = document.getElementById('nav-links');
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('active');
+          menuToggle.classList.toggle('is-active');
         });
-    </script>
-    <style>
+      }
+    });
+</script>
   
 /* 2. Create the hidden year overlay using the data-year attribute */
 .col-md-4[data-year]::after {
