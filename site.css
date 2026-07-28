@@ -82,57 +82,76 @@ body.on { background-image: url(https://images.alphacoders.com/583/thumb-1920-58
   z-index: -1;
   filter: brightness(0.6); 
 }
+I can see your exact navbar.html code in the GitHub repository you are viewing! The issues you are experiencing (white invisible text and it only working on one page) usually boil down to two common culprits: mismatched CSS class names and unlinked stylesheets.
+
+Here is exactly how to fix both issues based on your current code.
+
+1. Fix the "White Text" Issue (Matching Your CSS)
+The text is appearing white and blending into the background because the CSS background color isn't applying correctly. This is because your HTML uses the class .logo, but my previous CSS snippet used .nav-brand.
+
+Additionally, I noticed you have a mobile hamburger menu (.menu-toggle) in your HTML. Here is the corrected CSS that perfectly matches the navbar.html file in your repository:
+
+CSS
 /* Navigation Bar Container */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2c3e50; /* Dark slate blue */
+  background-color: #2c3e50; /* Dark background so white text is visible! */
   padding: 1rem 5%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  
-  /* Keeps the navbar at the top when scrolling */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 }
 
-/* Brand/Logo Styling */
-.nav-brand {
+/* Logo Styling (Matches your class="logo") */
+.logo {
   color: #ffffff;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: bold;
   text-decoration: none;
-  letter-spacing: 1px;
 }
 
 /* Links Container */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 2rem; /* Space between links */
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
 
 /* Individual Link Styling */
-.nav-links a {
-  color: #ecf0f1;
+.nav-links li a {
+  color: #ffffff;
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0;
+  transition: color 0.3s ease;
 }
 
-/* Hover and Focus Effects */
-.nav-links a:hover,
-.nav-links a:focus {
-  color: #3498db; /* Bright blue accent */
-}
-
-/* Active Page Indicator */
-.nav-links a.active {
+.nav-links li a:hover {
   color: #3498db;
-  border-bottom: 2px solid #3498db;
+}
+
+/* --- Hamburger Menu Styling --- */
+.menu-toggle {
+  display: none; /* Hides it on desktop screens */
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  margin: 3px 0;
+  border-radius: 3px;
+}
+
+/* Simple mobile adjustment */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; /* Shows hamburger on mobile */
+  }
+  .nav-links {
+    display: none; /* Hides links on mobile by default */
+  }
 }
