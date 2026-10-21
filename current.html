@@ -1,255 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Games</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <link rel="stylesheet" href="site.css">
-    <style>
-        h1 { text-align: center; }
-        p { text-align: center; }
-        
-        /* Fixed Edge-to-Edge Background */
-        body {
-            background-image: url("https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2000&auto=format&fit=crop");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            overflow-x: hidden;
-        }
-
-        /* Flexbox for equal-sized thumbnail boxes (if you use them here) */
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .thumbnail {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .thumbnail .caption {
-            margin-top: auto; 
-        }
-        .thumbnail img {
-            height: 150px;
-            width: 100%;
-            object-fit: contain; 
-            padding-top: 10px;    
-        }
-        
-
-    .game-card {
-        position: relative;
-        margin-bottom: 30px;
-        height: 350px; /* Forces the box to a strict height */
-        overflow: hidden;
-        border-radius: 8px;
-        background-color: #000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shayan M | Video Games</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="site.css">
+  <style>
+    body {
+      background-image: url("https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2000&auto=format&fit=crop");
     }
-
-    /* The Image Styles - FORCED UNIFORM SIZE */
-    .game-card img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important; /* Crops to fill the 350px box perfectly */
-        object-position: center top !important; /* Keeps the focus on the top of the box art */
-        opacity: 0.6;
-        transition: transform 0.5s ease, opacity 0.5s ease;
-        display: block;
-    }
-
-    /* Hover Animation for the Image */
-    .game-card:hover img {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-
-    /* --- Year Hover Reveal Effect --- */
-    .game-card::after {
-        content: "Released: " attr(data-year);
-        position: absolute;
-        top: 65%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 10px 20px;
-        font-size: 18px;
-        font-weight: bold;
-        border-radius: 6px;
-        pointer-events: none;
-        opacity: 0;
-        transition: all 0.4s ease-in-out;
-        white-space: nowrap;
-    }
-
-    .game-card:hover::after {
-        top: 50%;
-        opacity: 1;
-    }
-    * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-    </style>
+  </style>
 </head>
-
 <body>
-    <!-- This empty div is where your navbar will appear -->
-<div id="nav-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-<!-- This script loads navbar.html into the div above -->
-<script>
-  fetch('navbar.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('nav-placeholder').innerHTML = data;
-      
-      // Re-activate the mobile hamburger menu once the navbar loads
-      const menuToggle = document.getElementById('mobile-menu');
-      const navLinks = document.getElementById('nav-links');
-      if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-          navLinks.classList.toggle('active');
-          menuToggle.classList.toggle('is-active');
+  <script>
+    (function initNavbar() {
+      const fallbackNav = `
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+          <a href="index.html" class="nav-brand"><span class="brand-symbol">&#9794;</span> Shayan M <span class="brand-symbol">&#9806;</span></a>
+          <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+          </button>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="current.html">Games</a></li>
+          </ul>
+        </nav>`;
+
+      function setupNavBehavior() {
+        const currentPage = window.location.pathname.split('/').pop() || 'current.html';
+        document.querySelectorAll('#nav-links a').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPage) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
         });
+
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', function() {
+            const isOpen = navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('is-active', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
       }
+
+      fetch('navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Navbar fetch failed');
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          setupNavBehavior();
+        })
+        .catch(() => {
+          document.getElementById('nav-placeholder').innerHTML = fallbackNav;
+          setupNavBehavior();
+        });
+    })();
+  </script>
+
+  <main class="container">
+    <header class="page-hero">
+      <h1 class="centered sansSerif">&#9794; Video Games &#9806;</h1>
+      <p class="page-subtitle">Hover over any cover art to reveal its release year, or click to read more on Wikipedia</p>
+
+      <div class="filter-tabs" role="tablist" aria-label="Filter games by series">
+        <button type="button" class="filter-btn active" data-filter="all">All Games (12)</button>
+        <button type="button" class="filter-btn" data-filter="gta">Grand Theft Auto (6)</button>
+        <button type="button" class="filter-btn" data-filter="mgs">Metal Gear Solid (6)</button>
+      </div>
+    </header>
+
+    <div class="row" id="gamesGrid">
+      <!-- ROW 1: GTA 3D Era -->
+      <div class="col-md-4 col-sm-6 game-col" data-series="gta">
+        <div class="game-card" data-title="gta3" data-year="2001">
+          <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_III" target="_blank" rel="noopener noreferrer">
+            <img src="https://static.wikia.nocookie.net/gtawiki/images/f/f6/GTA3_Box_Art.jpg" alt="Grand Theft Auto III" loading="lazy">
+            <div class="game-card-label">Grand Theft Auto III</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="gta">
+        <div class="game-card" data-title="gtavc" data-year="2002">
+          <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City" target="_blank" rel="noopener noreferrer">
+            <img src="https://static.wikia.nocookie.net/gtawiki/images/3/36/GTA_Vice_City_Box_Art.jpg" alt="Grand Theft Auto: Vice City" loading="lazy">
+            <div class="game-card-label">GTA: Vice City</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="gta">
+        <div class="game-card" data-title="gtasa" data-year="2004">
+          <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_San_Andreas" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/c/c4/GTASABOX.jpg" alt="Grand Theft Auto: San Andreas" loading="lazy">
+            <div class="game-card-label">GTA: San Andreas</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ROW 2: GTA HD Era -->
+      <div class="col-md-4 col-sm-6 game-col" data-series="gta">
+        <div class="game-card" data-title="gtaiv" data-year="2008">
+          <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV" target="_blank" rel="noopener noreferrer">
+            <img src="https://static.wikia.nocookie.net/gtawiki/images/4/44/GTAIV-Boxart.jpg" alt="Grand Theft Auto IV" loading="lazy">
+            <div class="game-card-label">Grand Theft Auto IV</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="gta">
+        <div class="game-card" data-title="gtaiveflc" data-year="2009">
+          <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Episodes_from_Liberty_City" target="_blank" rel="noopener noreferrer">
+            <img src="https://static.wikia.nocookie.net/gtawiki/images/2/21/GTA_EFLC_Neutral_Cover.jpg" alt="Grand Theft Auto: Episodes from Liberty City" loading="lazy">
+            <div class="game-card-label">GTA: Episodes from Liberty City</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="gta">
+        <div class="game-card" data-title="gtav" data-year="2013">
+          <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_V" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="Grand Theft Auto V" loading="lazy">
+            <div class="game-card-label">Grand Theft Auto V</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ROW 3: Metal Gear Solid 1 - 3 -->
+      <div class="col-md-4 col-sm-6 game-col" data-series="mgs">
+        <div class="game-card" data-title="mgs1" data-year="1998">
+          <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid" target="_blank" rel="noopener noreferrer">
+            <img src="https://origin.giantbomb.com/a/uploads/scale_small/0/1614/830685-metal_gear_solid_ps_jp_20anniv.jpg" alt="Metal Gear Solid" loading="lazy">
+            <div class="game-card-label">Metal Gear Solid</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="mgs">
+        <div class="game-card" data-title="mgs2" data-year="2001">
+          <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_2:_Sons_of_Liberty" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/Metalgear2boxart.jpg" alt="Metal Gear Solid 2: Sons of Liberty" loading="lazy">
+            <div class="game-card-label">MGS 2: Sons of Liberty</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="mgs">
+        <div class="game-card" data-title="mgs3" data-year="2004">
+          <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_3:_Snake_Eater" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/b/b3/Mgs3box.jpg" alt="Metal Gear Solid 3: Snake Eater" loading="lazy">
+            <div class="game-card-label">MGS 3: Snake Eater</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ROW 4: Metal Gear Solid 4 & V -->
+      <div class="col-md-4 col-sm-6 game-col" data-series="mgs">
+        <div class="game-card" data-title="mgs4" data-year="2008">
+          <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_4:_Guns_of_the_Patriots" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/4/4b/Mgs4us_cover_small.jpg" alt="Metal Gear Solid 4: Guns of the Patriots" loading="lazy">
+            <div class="game-card-label">MGS 4: Guns of the Patriots</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="mgs">
+        <div class="game-card" data-title="mgs5gz" data-year="2014">
+          <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_Ground_Zeroes" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/07/MGSV_Ground_Zeroes_boxart.jpg" alt="Metal Gear Solid V: Ground Zeroes" loading="lazy">
+            <div class="game-card-label">MGS V: Ground Zeroes</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 game-col" data-series="mgs">
+        <div class="game-card" data-title="mgs5tpp" data-year="2015">
+          <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_The_Phantom_Pain" target="_blank" rel="noopener noreferrer">
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/8f/Metal_Gear_Solid_V_The_Phantom_Pain_cover.png" alt="Metal Gear Solid V: The Phantom Pain" loading="lazy">
+            <div class="game-card-label">MGS V: The Phantom Pain</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Shayan M &bull; San Francisco State University &bull; <a href="https://github.com/shymoj" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">github.com/shymoj</a></p>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.getAttribute('data-filter');
+
+        document.querySelectorAll('.game-col').forEach(col => {
+          if (filter === 'all' || col.getAttribute('data-series') === filter) {
+            col.style.display = '';
+          } else {
+            col.style.display = 'none';
+          }
+        });
+      });
     });
-</script>
-
-<style>
-/* 2. Create the hidden year overlay using the data-year attribute */
-.col-md-4[data-year]::after {
-    content: "Released: " attr(data-year); /* Automatically pulls the year from your HTML */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.85); /* Dark semi-transparent background */
-    color: white;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 6px;
-    pointer-events: none; /* Ensures the hover box doesn't block you from clicking the image link */
-    
-    /* Hide it by default and animate the transition */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* 3. Reveal the overlay when hovering over the column */
-.col-md-4[data-year]:hover::after {
-    opacity: 1;
-
-}</style>
-    <div class="container">
-        <h1 class="centered sansSerif">&#9794 Video Games &#9806</h1>
-  <div class="row">
-        <!-- ROW 1 -->
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="gta3" data-year="2001">
-                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_III">
-                    <img src="http://vignette1.wikia.nocookie.net/gtawiki/images/f/f6/GTA3_Box_Art.jpg/revision/latest?cb=20080816153549" alt="GTA 3">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="gtavc" data-year="2002">
-                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Vice_City">
-                    <img src="http://vignette2.wikia.nocookie.net/gtawiki/images/3/36/GTA_Vice_City_Box_Art.jpg/revision/latest?cb=20080816125146" alt="GTA Vice City">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="gtasa" data-year="2004">
-                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_San_Andreas">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/c/c4/GTASABOX.jpg" alt="GTA San Andreas">
-                </a>
-            </div>
-        </div>
-
-        <!-- ROW 2 -->
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="gtaiv" data-year="2008">
-                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV">
-                    <img src="http://vignette2.wikia.nocookie.net/gtawiki/images/4/44/GTAIV-Boxart.jpg/revision/latest?cb=20071128223330" alt="GTA IV">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="gtaiveflc" data-year="2009">
-                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto:_Episodes_from_Liberty_City">
-                    <img src="http://vignette4.wikia.nocookie.net/gtawiki/images/2/21/GTA_EFLC_Neutral_Cover.jpg/revision/latest?cb=20100814203633" alt="GTA EFLC">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="gtav" data-year="2013">
-                <a href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_V">
-                    <img src="https://m.media-amazon.com/images/I/81htlTqEckL._SX522_.jpg" alt="GTA V">
-                </a>
-            </div>
-        </div>
-
-        <!-- ROW 3 -->
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="mgs1" data-year="1998">
-                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid">
-                    <img src="http://static.giantbomb.com/uploads/scale_small/0/1614/830685-metal_gear_solid_ps_jp_20anniv.jpg" alt="MGS 1">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="mgs2" data-year="2001">
-                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_2:_Sons_of_Liberty">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/6/6a/Metalgear2boxart.jpg" alt="MGS 2">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="mgs3" data-year="2004">
-                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_3:_Snake_Eater">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/b/b3/Mgs3box.jpg" alt="MGS 3">
-                </a>
-            </div>
-        </div>
-
-        <!-- ROW 4 -->
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="mgs4" data-year="2008">
-                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_4:_Guns_of_the_Patriots">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/4/4b/Mgs4us_cover_small.jpg" alt="MGS 4">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="mgs5gz" data-year="2014">
-                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_Ground_Zeroes">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/0/07/MGSV_Ground_Zeroes_boxart.jpg" alt="MGS V GZ">
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="game-card" data-title="mgs5tpp" data-year="2015">
-                <a href="https://en.wikipedia.org/wiki/Metal_Gear_Solid_V:_The_Phantom_Pain">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/8/8f/Metal_Gear_Solid_V_The_Phantom_Pain_cover.png" alt="MGS V TPP">
-                </a>
-            </div>
-        </div>
-    </div> <!-- End Row -->
-
-        </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </script>
 </body>
 </html>

@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Data Table</title>
-    <link rel="stylesheet" href="site.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shayan M | Data Table</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-    <h1>Data from text.txt</h1>
-    
-    <table border="1" id="dataTable">
-        <tbody id="tableBody"></tbody>
-    </table>
+  <div id="nav-placeholder"></div>
 
-    <script>
-        // Fetch the text file from the repository
-        fetch('text.txt')
-            .then(response => response.text())
-            .then(data => {
-                const tableBody = document.getElementById('tableBody');
-                
-                // Split the text file by line breaks to get each row
-                const rows = data.trim().split('\n');
-                
-                rows.forEach(rowText => {
-                    const tr = document.createElement('tr');
-                    
-                    // Assuming your text file separates columns with a comma. 
-                    // If it uses spaces, change ',' to ' '
-                    const columns = rowText.split(','); 
-                    
-                    columns.forEach(colText => {
-                        const td = document.createElement('td');
-                        td.textContent = colText.trim();
-                        tr.appendChild(td);
-                    });
-                    
-                    tableBody.appendChild(tr);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading the text file:', error);
-                document.getElementById('tableBody').innerHTML = '<tr><td>Error loading data.</td></tr>';
-            });
-    </script>
+  <script>
+    fetch('navbar.html')
+      .then(r => r.text())
+      .then(data => {
+        document.getElementById('nav-placeholder').innerHTML = data;
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('is-active');
+          });
+        }
+      });
+  </script>
+
+  <main class="container">
+    <header class="page-hero">
+      <h1>Data from text.txt</h1>
+      <p class="page-subtitle">Dynamically loaded CSV data table</p>
+    </header>
+
+    <div class="glass-panel">
+      <table id="dataTable" class="modern-table">
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    fetch('text.txt')
+      .then(response => response.text())
+      .then(data => {
+        const tableBody = document.getElementById('tableBody');
+        const rows = data.trim().split('\n');
+        rows.forEach(rowText => {
+          const tr = document.createElement('tr');
+          const columns = rowText.split(',');
+          columns.forEach(colText => {
+            const td = document.createElement('td');
+            td.textContent = colText.trim();
+            tr.appendChild(td);
+          });
+          tableBody.appendChild(tr);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading the text file:', error);
+        document.getElementById('tableBody').innerHTML = '<tr><td>Error loading data.</td></tr>';
+      });
+  </script>
 </body>
 </html>

@@ -1,150 +1,167 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="UTF-8">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shayan M | About &amp; Contact</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="site.css">
-<style>
-img {
-    opacity: 0.5;
-    filter: alpha(opacity=50); 
-}
+</head>
+<body>
+  <div id="nav-placeholder"></div>
 
-img:hover {
-    opacity: 1.0;
-    filter: alpha(opacity=100); 
-}
-.myForm {
-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-font-size: 0.8em;
-color: black;
-width: 30em;
-padding: 1em;
-}
+  <script>
+    (function initNavbar() {
+      const fallbackNav = `
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+          <a href="index.html" class="nav-brand"><span class="brand-symbol">&#9794;</span> Shayan M <span class="brand-symbol">&#9806;</span></a>
+          <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+          </button>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="current.html">Games</a></li>
+          </ul>
+        </nav>`;
 
-.myForm * {
-box-sizing: border-box;
-}
-
-.myForm label {
-padding: 0;
-font-weight: bold;
-text-align: right;
-display: block;
-}
-
-.myForm input,
-.myForm select,
-.myForm textarea {
-margin-left: 2em;
-float: right;
-width: 20em;
-border: 1px solid #ccc;
-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-font-size: 0.9em;
-padding: 0.3em;
-}
-
-.myForm textarea {
-height: 100px;
-}
-
-.myForm button {
-padding: 1em;
-border-radius: 0.5em;
-background: #eee;
-border: none;
-font-weight: bold;
-margin-left: 14em;
-margin-top: 1.8em;
-}
-
-.myForm button:hover {
-background: #ccc;
-cursor: pointer;
-}
-</style
-        <title>About</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="site.css">
-         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    </head>
-    <body>
-        <!-- This empty div is where your navbar will appear -->
-<div id="nav-placeholder"></div>
-
-<!-- This script loads navbar.html into the div above -->
-<script>
-  fetch('navbar.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('nav-placeholder').innerHTML = data;
-      
-      // Re-activate the mobile hamburger menu once the navbar loads
-      const menuToggle = document.getElementById('mobile-menu');
-      const navLinks = document.getElementById('nav-links');
-      if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-          navLinks.classList.toggle('active');
-          menuToggle.classList.toggle('is-active');
+      function setupNavBehavior() {
+        const currentPage = window.location.pathname.split('/').pop() || 'about.html';
+        document.querySelectorAll('#nav-links a').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPage) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
         });
+
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', function() {
+            const isOpen = navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('is-active', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
       }
-    });
-</script>
 
-    <style>
-          body{
-               background-image: url("http://www.littlebitsofeverything.com/wp-content/uploads/2014/10/contacts.jpg");
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          color:white;
-                  }
-         
-</style>
-        <div>
-            <h1 class ="centered sansSerif">Contact Information</h1>
-            <div>
-                <p class="centered"><a href="http://www.gmail.com"><img src="http://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Gmail-icon.png" width="100"></a></p>
-    <p class="centered"><a href="http://www.facebook.com"><img src ="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-facebook-512.png" width="100"></a></p>
-    <p class="centered"><a href="http://www.instagram.com"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" width="100"></a></p>
-    <p class="centered"><form class="myForm" method="get" enctype="application/x-www-form-urlencoded" action="/html/codes/html_form_handler.cfm">
+      fetch('navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Navbar fetch failed');
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          setupNavBehavior();
+        })
+        .catch(() => {
+          document.getElementById('nav-placeholder').innerHTML = fallbackNav;
+          setupNavBehavior();
+        });
+    })();
+  </script>
 
-<p>
-<label>Name 
-<input type="text" name="customer_name" required>
-</label> 
-</p>
+  <main class="container">
+    <header class="page-hero">
+      <h1 class="centered sansSerif">About &amp; Contact</h1>
+      <p class="page-subtitle">Computer Science student at San Francisco State University. Connect with me below or send a message directly.</p>
+    </header>
 
-<p>
-<label>Email 
-<input type="email" name="email_address">
-</label>
-</p>
-	
-<p>
-<label>Enquiry Regarding 
-<select id="pickup_place" name="pickup_place">
-<option value="" selected="selected">Select One</option>
-<option value="website" >Our Website</option>
-<option value="membership" >Membership</option>
-<option value="telepathy" >We'll Guess!</option>
-</select>
-</label> 
-</p>
+    <div class="contact-layout">
+      <!-- Social Links Grid -->
+      <div class="social-links-grid">
+        <a class="social-card" href="mailto:shymoj@gmail.com">
+          <img src="https://icons.iconarchive.com/icons/marcus-roberto/google-play/512/Gmail-icon.png" alt="Gmail">
+          <span>Email (Gmail)</span>
+        </a>
 
-<p>
-<label>Enquiry 
-<textarea name="comments" maxlength="500"></textarea>
-</label>
-</p>
+        <a class="social-card" href="https://github.com/shymoj" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub" style="background: #fff; border-radius: 12px; padding: 4px;">
+          <span>GitHub</span>
+        </a>
 
-<p><button>Submit Enquiry</button></p>
+        <a class="social-card" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-facebook-512.png" alt="Facebook">
+          <span>Facebook</span>
+        </a>
 
-</form></p>
-		    </form>
-            </div>
+        <a class="social-card" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+          <span>Instagram</span>
+        </a>
+      </div>
+
+      <!-- Enquiry Form -->
+      <form id="contactForm" class="myForm" novalidate>
+        <h2 style="margin-top: 0; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; text-align: center;">Send an Enquiry</h2>
+
+        <div class="form-group-modern">
+          <label for="customer_name">Name</label>
+          <input type="text" id="customer_name" name="customer_name" placeholder="Your full name" required>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </body>
+
+        <div class="form-group-modern">
+          <label for="email_address">Email</label>
+          <input type="email" id="email_address" name="email_address" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group-modern">
+          <label for="pickup_place">Enquiry Regarding</label>
+          <select id="pickup_place" name="pickup_place" required>
+            <option value="" selected>Select One</option>
+            <option value="website">Website &amp; Projects</option>
+            <option value="collaboration">Collaboration / CS</option>
+            <option value="gaming">Gaming &amp; Reviews</option>
+            <option value="general">General Enquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group-modern">
+          <label for="comments">Enquiry Message</label>
+          <textarea id="comments" name="comments" maxlength="500" placeholder="Write your message here (up to 500 characters)..." required></textarea>
+        </div>
+
+        <button type="submit">Submit Enquiry</button>
+
+        <div id="formFeedback" role="status" aria-live="polite" style="display: none; margin-top: 1.25rem; padding: 1rem; border-radius: 10px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.5); color: #a7f3d0; text-align: center; font-weight: 500;"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Shayan M &bull; San Francisco State University &bull; <a href="https://github.com/shymoj" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">github.com/shymoj</a></p>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('customer_name').value.trim();
+      const email = document.getElementById('email_address').value.trim();
+      const topic = document.getElementById('pickup_place').value;
+      const comments = document.getElementById('comments').value.trim();
+      const feedback = document.getElementById('formFeedback');
+
+      if (!name || !email || !comments) {
+        feedback.style.display = 'block';
+        feedback.style.background = 'rgba(239, 68, 68, 0.2)';
+        feedback.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+        feedback.style.color = '#fecaca';
+        feedback.textContent = 'Please fill in your name, email address, and message.';
+        return;
+      }
+
+      feedback.style.display = 'block';
+      feedback.style.background = 'rgba(16, 185, 129, 0.2)';
+      feedback.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+      feedback.style.color = '#a7f3d0';
+      feedback.textContent = `Thanks, ${name}! Your enquiry (${topic || 'general'}) has been received.`;
+      this.reset();
+    });
+  </script>
+</body>
 </html>

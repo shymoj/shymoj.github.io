@@ -1,242 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Shayans Index</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Page Title</title>
-  
-  <!-- THIS IS THE CRITICAL LINE -->
+  <title>Shayan M | Home</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="site.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
-    <style>
-        h1 { text-align: center; }
-        p { text-align: center; }
-        body {
-            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg/3840px-San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg");
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            overflow-x: hidden;
-        }
-        article.scrollspy-example {
-            position: relative; 
-            overflow: scroll; 
-            width: 350px; 
-            height: 160px; 
-        }
-        /* Force the row to use flexbox to equalize column heights */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-/* Make the thumbnail fill the entire column height */
-.thumbnail {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Push the text and buttons to the bottom evenly */
-.thumbnail .caption {
-    margin-top: auto; 
-}
-
-/* Lock all thumbnail images to the exact same height */
-.thumbnail img {
-    height: 150px;
-    width: 100%;
-    object-fit: contain; /* Keeps logos from getting cropped or stretched */
-    padding-top: 10px;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-        
-        
-    </style>
 </head>
-
 <body>
-<div id="nav-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-<!-- This script loads navbar.html into the div above -->
-<script>
-  fetch('navbar.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('nav-placeholder').innerHTML = data;
-      
-      // Re-activate the mobile hamburger menu once the navbar loads
-      const menuToggle = document.getElementById('mobile-menu');
-      const navLinks = document.getElementById('nav-links');
-      if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-          navLinks.classList.toggle('active');
-          menuToggle.classList.toggle('is-active');
+  <script>
+    (function initNavbar() {
+      const fallbackNav = `
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+          <a href="index.html" class="nav-brand"><span class="brand-symbol">&#9794;</span> Shayan M <span class="brand-symbol">&#9806;</span></a>
+          <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+          </button>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="current.html">Games</a></li>
+          </ul>
+        </nav>`;
+
+      function setupNavBehavior() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('#nav-links a').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
         });
-      }
-    });
-</script>
 
-    <div class="container">
-        <h1 class="centered sansSerif">&#9794 Shayan M &#9806</h1>
-        <br>
-        
-        <p class="centered">
-            <button type="button" class="btn btn-default" onclick="BGChange()">BG change</button>
-        </p>
-        <p id="fun"></p>
-
-        <script>
-        function BGChange() {
-            let imgPath = document.body.style.backgroundImage;
-            if (imgPath.includes("web-tehran")) {
-                document.body.style.backgroundImage = 'url("https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2000&auto=format&fit=crop")';
-            } else {
-                document.body.style.backgroundImage = 'url("https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg")';
-            }
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', function() {
+            const isOpen = navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('is-active', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
         }
-        </script>
+      }
 
-        <br>
+      fetch('navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Navbar fetch failed');
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          setupNavBehavior();
+        })
+        .catch(() => {
+          document.getElementById('nav-placeholder').innerHTML = fallbackNav;
+          setupNavBehavior();
+        });
+    })();
+  </script>
 
-        <div id="my-pics" class="carousel slide" data-ride="carousel" style="width:300px;margin:auto;">
-            <ol class="carousel-indicators">
-                <li data-target="#my-pics" data-slide-to="0" class="active"></li>
-                <li data-target="#my-pics" data-slide-to="1" class="active"></li>
-                <li data-target="#my-pics" data-slide-to="2" class="active"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <a href="news.html"><img src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" alt="news"></a>
-                    <div class="carousel-caption">
-                        <h3>News</h3>
-                    </div>
-                </div>
-                <div class="item">
-                    <a href="current.html"><img src="https://cdn.wccftech.com/wp-content/uploads/2021/10/GTA-Remastered-TrilogyHD-scaled.jpg" alt="games"></a>
-                    <div class="carousel-caption">
-                        <h3>Games List</h3>
-                    </div>
-                </div>
-                <div class="item">
-                    <a href="about.html"><img src="https://assets.adventistconnect.org/daytonco/2025/10/30141948/contactus-816336458.jpg.jpg" alt="contacts"></a>
-                    <div class="carousel-caption">
-                        <h3>Contacts</h3>
-                    </div>
-                </div>
+  <main class="container">
+    <header class="page-hero">
+      <h1 class="centered sansSerif">&#9794; Shayan M &#9806;</h1>
+      <p class="page-subtitle">Computer Science @ SFSU &bull; Hardware Reviews &bull; Classic Gaming</p>
+
+      <div class="bg-controls">
+        <span id="fun" class="bg-label">Scene: Marin Headlands, SF</span>
+        <button type="button" class="btn-bg-switch" onclick="BGChange()">Switch Background</button>
+      </div>
+    </header>
+
+    <script>
+      const backgrounds = [
+        {
+          name: "Marin Headlands, SF",
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg/3840px-San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg"
+        },
+        {
+          name: "Tehran Skyline",
+          url: "https://static.independent.co.uk/s3fs-public/thumbnails/image/2014/03/26/19/web-tehran-getty-cv3-DONTUSEAGAIN.jpg"
+        },
+        {
+          name: "Golden Gate Dusk",
+          url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=2000&auto=format&fit=crop"
+        }
+      ];
+      let currentBgIndex = 0;
+
+      function BGChange() {
+        currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
+        const nextBg = backgrounds[currentBgIndex];
+        document.body.style.backgroundImage = `url("${nextBg.url}")`;
+        const label = document.getElementById('fun');
+        if (label) {
+          label.textContent = `Scene: ${nextBg.name}`;
+        }
+      }
+    </script>
+
+    <!-- Featured Carousel -->
+    <section class="carousel-wrapper" aria-label="Featured sections">
+      <div id="my-pics" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#my-pics" data-slide-to="0" class="active"></li>
+          <li data-target="#my-pics" data-slide-to="1"></li>
+          <li data-target="#my-pics" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <a href="news.html">
+              <img class="contain-img" src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" alt="Tech News and Hardware Reviews">
+            </a>
+            <div class="carousel-caption">
+              <h3>Tech News &amp; Reviews</h3>
+              <p>In-depth hardware ratings for smartphones and consoles</p>
             </div>
-            <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
-                <span class="icon-prev" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
+          </div>
+
+          <div class="item">
+            <a href="current.html">
+              <img src="https://cdn.wccftech.com/wp-content/uploads/2021/10/GTA-Remastered-TrilogyHD-scaled.jpg" alt="Video Games Collection">
             </a>
-            <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
-                <span class="icon-next" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
+            <div class="carousel-caption">
+              <h3>Games List</h3>
+              <p>Explore classic Grand Theft Auto &amp; Metal Gear Solid releases</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <a href="about.html">
+              <img src="https://assets.adventistconnect.org/daytonco/2025/10/30141948/contactus-816336458.jpg.jpg" alt="Contact Information">
             </a>
+            <div class="carousel-caption">
+              <h3>Contacts &amp; About</h3>
+              <p>Connect on social media or send an enquiry directly</p>
+            </div>
+          </div>
         </div>
 
-        <br><br><br><br>
-        
-        <!-- REVIEWS SECTION
-<div id="reviews-container">
-    
-     1. Note 7 Review (Index 0 - Visible by default) 
-    <div id="review-0" class="review-section">
-        <p class="centered"><b><center>Samsung Note 7 Review!</center></b></p>
-        <p class="centered">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 95%"></div></div>
-        <p class="centered">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
-        <p class="centered">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="centered">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 95%"></div></div>
-        <br>
-    </div>
+        <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </section>
 
-    <!---- 2. PS4 Pro Review (Index 1 - Hidden by default) 
-    <div id="review-1" class="review-section" style="display: none;">
-        <p class="centered"><b><center>Playstation 4 Pro Review!</center></b></p>
-        <p class="centered">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 90%"></div></div>
-        <p class="centered">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 85%"></div></div>
-        <p class="centered">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 90%"></div></div>
-        <p class="centered">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 75%"></div></div>
-        <br>
-    </div>
-
-    <!-- 3. Xbox One S Review (Index 2 - Hidden by default) 
-    <div id="review-2" class="review-section" style="display: none;">
-        <p class="centered"><b><center>Xbox One S Review!</center></b></p>
-        <p class="centered">Overall</p>
-        <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
-        <p class="centered">Software</p>
-        <div class="progress"><div class="progress-bar progress-bar-success" style="width: 70%"></div></div>
-        <p class="centered">Hardware</p>
-        <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-        <p class="centered">Features</p>
-        <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 90%"></div></div>
-        <br>
-    </div>
--->
-</div>
-        <br><br>
-
-
-
-        <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://imageio.forbes.com/specials-images/imageserve/55b934d5e4b05c2c34324463/0x0.jpg?format=jpg&crop=416,416,x0,y0,safe&height=200&width=200&fit=bounds" alt="sfsu">
-                    <div class="caption">
-                        <p>SFSU Student</p>
-                        <p><a href="http://www.sfsu.edu/" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
+    <!-- Feature Cards Grid -->
+    <section aria-label="Quick links">
+      <div class="row equal-cards">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <div class="card-icon-wrap">
+              <img src="https://imageio.forbes.com/specials-images/imageserve/55b934d5e4b05c2c34324463/0x0.jpg?format=jpg&crop=416,416,x0,y0,safe&height=200&width=200&fit=bounds" alt="San Francisco State University">
             </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://media.glassdoor.com/sqll/671945/github-squarelogo-1449862218536.png" alt="cs">
-                    <div class="caption">
-                        <p>Computer Science major. Here is my github</p>
-                        <p><a href="https://github.com/shymoj" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
+            <div class="caption">
+              <h3>SFSU Student</h3>
+              <p>Studying at San Francisco State University in the heart of the Bay Area.</p>
+              <p><a href="https://www.sfsu.edu/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" role="button">Visit SFSU &nearr;</a></p>
             </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/3473-200.png" alt="vg">
-                    <div class="caption">
-                        <p>I like video games</p>
-                        <p><a href="current.html" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/contact-us-icon.png" alt="about">
-                    <div class="caption">
-                        <p>My contact information</p>
-                        <p><a href="about.html" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div> 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <div class="card-icon-wrap">
+              <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub Profile">
+            </div>
+            <div class="caption">
+              <h3>Computer Science</h3>
+              <p>Computer Science major. Check out my repositories and projects on GitHub.</p>
+              <p><a href="https://github.com/shymoj" target="_blank" rel="noopener noreferrer" class="btn btn-primary" role="button">View GitHub &nearr;</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <div class="card-icon-wrap">
+              <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/3473-200.png" alt="Video Games">
+            </div>
+            <div class="caption">
+              <h3>Video Games</h3>
+              <p>A curated showcase of my favorite GTA and Metal Gear Solid titles.</p>
+              <p><a href="current.html" class="btn btn-primary" role="button">Browse Games &rarr;</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <div class="card-icon-wrap">
+              <img src="https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/contact-us-icon.png" alt="Contact Information">
+            </div>
+            <div class="caption">
+              <h3>Contact Me</h3>
+              <p>Reach out via email, social links, or the direct enquiry form.</p>
+              <p><a href="about.html" class="btn btn-primary" role="button">Get in Touch &rarr;</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Shayan M &bull; San Francisco State University &bull; <a href="https://github.com/shymoj" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">github.com/shymoj</a></p>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

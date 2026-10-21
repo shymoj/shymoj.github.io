@@ -1,140 +1,212 @@
 <!DOCTYPE html>
-      <html>
-          <head>
-		<title>News</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Page Title</title>
-  
-  <!-- THIS IS THE CRITICAL LINE -->
+  <title>Shayan M | News &amp; Reviews</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="site.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- jQuery Script -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    
-    <!-- Live Search Script -->
-    <script>
-    $(document).ready(function(){
-        // Listen for typing in the search box
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            
-            // Filter the articles based on the text typed
-            $(".article").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-    </script>
-    <style>
-    body {
-        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg/3840px-San_Francisco_from_the_Marin_Headlands_in_August_2022.jpg");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover; /* Added to make sure it fits the screen */
-        color: white;
-    }
-    * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
-            
-    <body>
-    <!-- Navbar -->
-    <div id="navbar-placeholder"></div>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
 
-    <script>
-        fetch('navbar.html')
-        .then(response => response.text())
+  <script>
+    (function initNavbar() {
+      const fallbackNav = `
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+          <a href="index.html" class="nav-brand"><span class="brand-symbol">&#9794;</span> Shayan M <span class="brand-symbol">&#9806;</span></a>
+          <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+          </button>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="current.html">Games</a></li>
+          </ul>
+        </nav>`;
+
+      function setupNavBehavior() {
+        const currentPage = window.location.pathname.split('/').pop() || 'news.html';
+        document.querySelectorAll('#nav-links a').forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === currentPage) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', function() {
+            const isOpen = navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('is-active', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
+      }
+
+      fetch('navbar.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Navbar fetch failed');
+          return response.text();
+        })
         .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
+          document.getElementById('nav-placeholder').innerHTML = data;
+          setupNavBehavior();
+        })
+        .catch(() => {
+          document.getElementById('nav-placeholder').innerHTML = fallbackNav;
+          setupNavBehavior();
         });
-    </script>
+    })();
+  </script>
 
-    <div class="container">
-        <h1 class="text-center sansSerif red">News</h1>
-        
-        <!-- LIVE SEARCH BAR -->
-        <div class="text-center" style="margin-bottom: 50px;">
-            <label for="searchInput">Search Articles: </label>
-            <input id="searchInput" type="text" placeholder="Type to search..." style="color: black; padding: 5px; border-radius: 4px; width: 250px;">
-        </div>
+  <main class="container">
+    <header class="page-hero">
+      <h1 class="text-center sansSerif">Tech News &amp; Reviews</h1>
+      <p class="page-subtitle">Hands-on hardware evaluations across mobile devices and home consoles</p>
+    </header>
 
-        <!-- Note 7 Article Container -->
-        <div class="article">
-            <p class="text-center"><b>Samsung Note 7 Review!</b></p>
-            <div class="text-center">
-                <img src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" style="vertical-align: middle;" width="200" alt="Note 7">
-            </div>
-            <p>Samsung's Galaxy Note 7 is a beautiful, capable Android phone that showcases Samsung's best in design, battery life, speed and features. The 64GB base model leaves you plenty of space for photos, videos and games. Great phone but got recalled due to battery issues.</p>
-            
-            <p class="text-center">Overall</p>
-            <div class="progress"><div class="progress-bar progress-bar-info" style="width: 95%"></div></div>
-            <p class="text-center">Software</p>
-            <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
-            <p class="text-center">Hardware</p>
-            <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-            <p class="text-center">Features</p>
-            <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 95%"></div></div>
-            <br>
-        </div>
-
-        <!-- PS4 Pro Article Container -->
-        <div class="article">
-            <p class="text-center"><b>Sony Playstation 4 Pro Review!</b></p>
-            <div class="text-center">
-                <img src="https://s.aolcdn.com/hss/storage/midas/1fb1acfed25846aa74eeb755f5e9b6ef/204297761/ps4-pro-screen-03.jpg" style="vertical-align: middle;" width="200" alt="PS4 Pro">
-            </div>
-            <p>Sony's PS4 Pro outputs a 4K and HDR signal that's compatible with high-end TVs, and promises better visuals and increased frame rates for certain games. The console includes a 1TB hard drive, and it works with all PS4 games, apps and accessories to date. One minus is there is no Ultra 4K Bluray support.</p>
-            
-            <p class="text-center">Overall</p>
-            <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
-            <p class="text-center">Software</p>
-            <div class="progress"><div class="progress-bar progress-bar-success" style="width: 90%"></div></div>
-            <p class="text-center">Hardware</p>
-            <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-            <p class="text-center">Features</p>
-            <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 70%"></div></div>
-            <br>
-        </div>
-
-        <!-- Xbox One S Article Container -->
-        <div class="article">
-            <p class="text-center"><b>Microsoft Xbox One S Review!</b></p>
-            <div class="text-center">
-                <img src="http://cdn.wccftech.com/wp-content/uploads/2016/06/ones.png" style="vertical-align: middle;" width="200" alt="Xbox One S">
-            </div>
-            <p>Microsoft's Xbox One S is a slick looking game console that's 40 percent smaller than the original and ditches the infamously gigantic power brick. It can display 4K video from streaming services and Ultra HD Blu-rays, and supports HDR contrast on video and games. The updated controller works with other Bluetooth devices, too. While it does provide a Ultra 4K Bluray support does not support 4K gaming.</p>
-            
-            <p class="text-center">Overall</p>
-            <div class="progress"><div class="progress-bar progress-bar-info" style="width: 85%"></div></div>
-            <p class="text-center">Software</p>
-            <div class="progress"><div class="progress-bar progress-bar-success" style="width: 70%"></div></div>
-            <p class="text-center">Hardware</p>
-            <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 80%"></div></div>
-            <p class="text-center">Features</p>
-            <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 90%"></div></div>
-        </div>
-        
+    <!-- Live Search Bar -->
+    <div class="search-bar-container">
+      <label for="searchInput" class="sr-only">Search Articles</label>
+      <div class="search-input-wrap">
+        <span class="glyphicon glyphicon-search search-icon" aria-hidden="true"></span>
+        <input id="searchInput" type="search" placeholder="Search reviews (e.g. Samsung, 4K, PS4, Xbox)..." autocomplete="off">
+        <span id="searchCount" class="search-count">3 reviews</span>
+      </div>
     </div>
-    <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const menuToggle = document.getElementById('mobile-menu');
-    const navLinks = document.getElementById('nav-links');
 
-    // This toggle function fixes the open/close issue
-    menuToggle.addEventListener('click', function() {
-      navLinks.classList.toggle('active');
-      menuToggle.classList.toggle('is-active'); // Animates the hamburger
+    <!-- Reviews Container -->
+    <div class="reviews-grid">
+      <!-- 1. Note 7 Article -->
+      <article class="article">
+        <div class="article-header">
+          <div class="article-img-box">
+            <img src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" alt="Samsung Galaxy Note 7">
+          </div>
+          <div class="article-info">
+            <h2>Samsung Galaxy Note 7 Review!</h2>
+            <p>Samsung's Galaxy Note 7 is a beautiful, capable Android phone that showcases Samsung's best in design, battery life, speed, and features. The 64GB base model leaves you plenty of space for photos, videos, and games. Great phone, though famously recalled due to battery issues.</p>
+          </div>
+        </div>
+
+        <div class="ratings-list">
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Overall</span><span class="rating-score">95%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Software</span><span class="rating-score">90%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Hardware</span><span class="rating-score">80%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Features</span><span class="rating-score">95%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. PS4 Pro Article -->
+      <article class="article">
+        <div class="article-header">
+          <div class="article-img-box">
+            <img src="https://gmedia.playstation.com/is/image/SIEPDC/ps4-pro-product-thumbnail-01-en-14sep21" alt="Sony PlayStation 4 Pro">
+          </div>
+          <div class="article-info">
+            <h2>Sony PlayStation 4 Pro Review!</h2>
+            <p>Sony's PS4 Pro outputs a 4K and HDR signal compatible with high-end TVs, promising sharper visuals and increased frame rates for enhanced games. The console includes a 1TB hard drive and works with all PS4 games, apps, and accessories. One drawback is the lack of Ultra HD 4K Blu-ray disc support.</p>
+          </div>
+        </div>
+
+        <div class="ratings-list">
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Overall</span><span class="rating-score">85%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Software</span><span class="rating-score">90%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Hardware</span><span class="rating-score">80%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Features</span><span class="rating-score">70%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Xbox One S Article -->
+      <article class="article">
+        <div class="article-header">
+          <div class="article-img-box">
+            <img src="https://cdn.wccftech.com/wp-content/uploads/2016/06/ones.png" alt="Microsoft Xbox One S">
+          </div>
+          <div class="article-info">
+            <h2>Microsoft Xbox One S Review!</h2>
+            <p>Microsoft's Xbox One S is a sleek game console that is 40 percent smaller than the original and ditches the bulky external power brick. It plays 4K video from streaming services and Ultra HD Blu-rays, and supports HDR contrast on video and games. The updated controller adds Bluetooth support, though native 4K gaming is reserved for higher-tier hardware.</p>
+          </div>
+        </div>
+
+        <div class="ratings-list">
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Overall</span><span class="rating-score">85%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Software</span><span class="rating-score">70%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Hardware</span><span class="rating-score">80%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div></div>
+          </div>
+          <div class="rating-item">
+            <div class="rating-label-row"><span>Features</span><span class="rating-score">90%</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <div id="noResultsMsg" class="glass-panel centered" style="display: none;">
+        <h3>No matching reviews found</h3>
+        <p style="color: var(--text-secondary);">Try searching for a different keyword such as "Samsung", "Sony", "Xbox", or "4K".</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; Shayan M &bull; San Francisco State University &bull; <a href="https://github.com/shymoj" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">github.com/shymoj</a></p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#searchInput").on("input keyup", function() {
+        var value = $(this).val().toLowerCase().trim();
+        var visibleCount = 0;
+
+        $(".article").each(function() {
+          var matches = $(this).text().toLowerCase().indexOf(value) > -1;
+          $(this).toggle(matches);
+          if (matches) visibleCount++;
+        });
+
+        $("#searchCount").text(visibleCount + (visibleCount === 1 ? " review" : " reviews"));
+        $("#noResultsMsg").toggle(visibleCount === 0);
+      });
     });
-  });
-</script>
-        </body>
-    </html>
-  
-
+  </script>
+</body>
+</html>
