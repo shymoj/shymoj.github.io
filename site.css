@@ -308,112 +308,187 @@ h1 {
 }
 
 /* ==========================================================================
-   Carousel (Home Page)
+   Hero Slider (Home Page)
    ========================================================================== */
 .carousel-wrapper {
-  max-width: 780px;
+  max-width: 820px;
   margin: 0 auto 3.5rem;
 }
 
-#my-pics.carousel {
-  width: 100% !important;
+#my-pics.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 420px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-glass);
-  background: var(--surface-card);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: var(--shadow-lg);
-}
-
-#my-pics .carousel-inner > .item {
-  height: 380px;
-  position: relative;
   background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  box-shadow: var(--shadow-lg);
+  user-select: none;
 }
 
-#my-pics .carousel-inner > .item > a {
+#my-pics .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+  z-index: 1;
+}
+
+#my-pics .slide.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+#my-pics .slide-link {
   display: block;
+  position: relative;
   width: 100%;
   height: 100%;
+  text-decoration: none !important;
+  color: #ffffff !important;
 }
 
-#my-pics .carousel-inner > .item img {
-  width: 100%;
-  height: 100%;
+#my-pics .slide img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.6s ease;
+  display: block;
+  transition: transform 0.65s ease;
 }
 
-#my-pics .carousel-inner > .item img.contain-img {
+#my-pics .slide img.contain-img {
   object-fit: contain;
-  padding: 24px 24px 72px;
+  padding: 20px 20px 85px;
+  background: radial-gradient(circle at 50% 42%, rgba(56, 189, 248, 0.18) 0%, rgba(15, 23, 42, 0.95) 75%);
 }
 
-#my-pics .carousel-inner > .item:hover img {
+#my-pics .slide:hover img {
   transform: scale(1.04);
 }
 
-#my-pics .carousel-caption {
+#my-pics .slide-caption {
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 2.5rem 1.5rem 2rem;
-  background: linear-gradient(to top, rgba(11, 15, 25, 0.95) 0%, rgba(11, 15, 25, 0.6) 60%, transparent 100%);
+  padding: 3rem 1.75rem 2.35rem;
+  background: linear-gradient(to top, rgba(11, 15, 25, 0.96) 0%, rgba(11, 15, 25, 0.72) 55%, transparent 100%);
+  text-align: center;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
 }
 
-#my-pics .carousel-caption h3 {
+#my-pics .slide-caption h3 {
   font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0 0 0.25rem;
+  font-weight: 800;
+  margin: 0 0 0.3rem;
   color: #ffffff;
 }
 
-#my-pics .carousel-caption p {
+#my-pics .slide-caption p {
   font-size: 0.98rem;
   color: var(--text-secondary);
   margin: 0;
 }
 
-#my-pics .carousel-indicators {
-  bottom: 10px;
-  width: auto;
-  background: transparent;
+/* Prev / Next Arrow Buttons */
+#my-pics .slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
-#my-pics .carousel-indicators li {
+#my-pics .slider-btn:hover,
+#my-pics .slider-btn:focus {
+  background: rgba(56, 189, 248, 0.85);
+  border-color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+  outline: none;
+}
+
+#my-pics .slider-btn.prev {
+  left: 16px;
+}
+
+#my-pics .slider-btn.next {
+  right: 16px;
+}
+
+/* Centered Bottom Indicator Dots */
+#my-pics .slider-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 5;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#my-pics .slider-dot {
   width: 10px;
   height: 10px;
-  margin: 0 4px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.28);
+  padding: 0;
+  cursor: pointer;
   transition: all 0.25s ease;
 }
 
-#my-pics .carousel-indicators li.active {
-  width: 26px;
-  border-radius: 999px;
-  background-color: var(--accent-primary);
+#my-pics .slider-dot.active {
+  width: 28px;
+  background: var(--accent-primary);
   border-color: var(--accent-primary);
 }
 
-#my-pics .carousel-control {
-  background: none !important;
-  opacity: 0.75;
-  width: 12%;
-  transition: opacity 0.2s ease;
-}
-
-#my-pics .carousel-control:hover {
-  opacity: 1;
-}
-
 @media (max-width: 600px) {
-  #my-pics .carousel-inner > .item {
-    height: 260px;
+  #my-pics.hero-slider {
+    height: 280px;
+  }
+  #my-pics .slide-caption h3 {
+    font-size: 1.35rem;
+  }
+  #my-pics .slide-caption p {
+    font-size: 0.88rem;
+  }
+  #my-pics .slider-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
   }
 }
 

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
   <title>Shayan M | Home</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="site.css">
@@ -103,57 +104,114 @@
       }
     </script>
 
-    <!-- Featured Carousel -->
+    <!-- Featured Hero Slider -->
     <section class="carousel-wrapper" aria-label="Featured sections">
-      <div id="my-pics" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#my-pics" data-slide-to="0" class="active"></li>
-          <li data-target="#my-pics" data-slide-to="1"></li>
-          <li data-target="#my-pics" data-slide-to="2"></li>
-        </ol>
-
-        <div class="carousel-inner" role="listbox">
-          <div class="item active">
-            <a href="news.html">
-              <img class="contain-img" src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" alt="Tech News and Hardware Reviews">
-            </a>
-            <div class="carousel-caption">
+      <div id="my-pics" class="hero-slider">
+        <div class="slide active">
+          <a href="news.html" class="slide-link">
+            <img class="contain-img" src="https://img.us.news.samsung.com/us/wp-content/uploads/2016/08/14175104/01_Galaxy-Note7_blue1.png" alt="Tech News and Hardware Reviews" referrerpolicy="no-referrer">
+            <div class="slide-caption">
               <h3>Tech News &amp; Reviews</h3>
               <p>In-depth hardware ratings for smartphones and consoles</p>
             </div>
-          </div>
+          </a>
+        </div>
 
-          <div class="item">
-            <a href="current.html">
-              <img src="https://cdn.wccftech.com/wp-content/uploads/2021/10/GTA-Remastered-TrilogyHD-scaled.jpg" alt="Video Games Collection">
-            </a>
-            <div class="carousel-caption">
+        <div class="slide">
+          <a href="current.html" class="slide-link">
+            <img src="https://cdn.wccftech.com/wp-content/uploads/2021/10/GTA-Remastered-TrilogyHD-scaled.jpg" alt="Video Games Collection" referrerpolicy="no-referrer">
+            <div class="slide-caption">
               <h3>Games List</h3>
               <p>Explore classic Grand Theft Auto &amp; Metal Gear Solid releases</p>
             </div>
-          </div>
+          </a>
+        </div>
 
-          <div class="item">
-            <a href="about.html">
-              <img src="https://assets.adventistconnect.org/daytonco/2025/10/30141948/contactus-816336458.jpg.jpg" alt="Contact Information">
-            </a>
-            <div class="carousel-caption">
+        <div class="slide">
+          <a href="about.html" class="slide-link">
+            <img src="https://assets.adventistconnect.org/daytonco/2025/10/30141948/contactus-816336458.jpg.jpg" alt="Contact Information" referrerpolicy="no-referrer">
+            <div class="slide-caption">
               <h3>Contacts &amp; About</h3>
               <p>Connect on social media or send an enquiry directly</p>
             </div>
-          </div>
+          </a>
         </div>
 
-        <a class="left carousel-control" href="#my-pics" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+        <button type="button" class="slider-btn prev" id="sliderPrev" aria-label="Previous slide">&#10094;</button>
+        <button type="button" class="slider-btn next" id="sliderNext" aria-label="Next slide">&#10095;</button>
+
+        <div class="slider-dots" role="tablist" aria-label="Slide indicators">
+          <button type="button" class="slider-dot active" data-slide="0" aria-label="Slide 1: News"></button>
+          <button type="button" class="slider-dot" data-slide="1" aria-label="Slide 2: Games"></button>
+          <button type="button" class="slider-dot" data-slide="2" aria-label="Slide 3: Contacts"></button>
+        </div>
       </div>
     </section>
+
+    <script>
+      (function initHeroSlider() {
+        const slider = document.getElementById('my-pics');
+        if (!slider) return;
+
+        const slides = slider.querySelectorAll('.slide');
+        const dots = slider.querySelectorAll('.slider-dot');
+        const prevBtn = document.getElementById('sliderPrev');
+        const nextBtn = document.getElementById('sliderNext');
+        let currentIndex = 0;
+        let timer = null;
+
+        function goToSlide(index) {
+          currentIndex = (index + slides.length) % slides.length;
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentIndex);
+          });
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+          });
+        }
+
+        function startAutoPlay() {
+          stopAutoPlay();
+          timer = setInterval(() => {
+            goToSlide(currentIndex + 1);
+          }, 5000);
+        }
+
+        function stopAutoPlay() {
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            goToSlide(currentIndex - 1);
+            startAutoPlay();
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            goToSlide(currentIndex + 1);
+            startAutoPlay();
+          });
+        }
+
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const target = parseInt(dot.getAttribute('data-slide'), 10);
+            goToSlide(target);
+            startAutoPlay();
+          });
+        });
+
+        slider.addEventListener('mouseenter', stopAutoPlay);
+        slider.addEventListener('mouseleave', startAutoPlay);
+
+        startAutoPlay();
+      })();
+    </script>
 
     <!-- Feature Cards Grid -->
     <section aria-label="Quick links">
